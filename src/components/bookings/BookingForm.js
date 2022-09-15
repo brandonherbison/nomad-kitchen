@@ -23,7 +23,7 @@ export const BookingForm = () => {
     const [sideChoices, setSideChoices] = useState({})
     const [dessertChoices, setDessertChoices] = useState({})
 
-    
+
 
 
     const [starters, setStarters] = useState([])
@@ -33,14 +33,7 @@ export const BookingForm = () => {
 
     const navigate = useNavigate()
 
-    const findStarterChoiceKeys = () => {
-        
-        for (const starterChoice of Object.keys(starterChoices)){
-            const foundKeys = starterChoices[starterChoice]
 
-            return foundKeys
-        }
-    }
 
 
     useEffect(
@@ -87,7 +80,7 @@ export const BookingForm = () => {
     const nomadUserObject = JSON.parse(localNomadUser)
 
 
-    
+
 
 
 
@@ -105,10 +98,12 @@ export const BookingForm = () => {
             price: booking.guestTotal * 125
         }
 
-        const starterChoiceToSendToAPI = {
-            starterId: 2
-        }
- 
+        const starterChoiceToSendToAPI = {}
+        const mainChoiceToSendToAPI = {}
+        const sideChoiceToSendToAPI = {}
+        const dessertChoiceToSendToAPI = {}
+
+
         return fetch(`http://localhost:8088/bookings`, {
             method: "POST",
             headers: {
@@ -118,20 +113,113 @@ export const BookingForm = () => {
         })
             .then(response => response.json())
 
-            .then((parsedResponse) => {
-                starterChoiceToSendToAPI.bookingId = parsedResponse.id
+            .then((booking) => {
+                starterChoiceToSendToAPI.bookingId = booking.id
+                mainChoiceToSendToAPI.bookingId = booking.id
+                sideChoiceToSendToAPI.bookingId = booking.id
+                dessertChoiceToSendToAPI.bookingId = booking.id
+                const promiseArray = []
 
-                return fetch(`http://localhost:8088/starterChoices`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(starterChoiceToSendToAPI)
+                for (const starterId of Object.keys(starterChoices)) {
+                    const quantity = starterChoices[starterId]
+
+                    starterChoiceToSendToAPI.starterId = parseInt(starterId)
+                    starterChoiceToSendToAPI.quantity = quantity
+                    promiseArray.push(
+
+                        fetch(`http://localhost:8088/starterChoices`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(starterChoiceToSendToAPI)
+                        })
+
+
+                    )
+
+
+                }
+                for (const mainId of Object.keys(mainChoices)) {
+                    const quantity = mainChoices[mainId]
+
+                    mainChoiceToSendToAPI.mainId = parseInt(mainId)
+                    mainChoiceToSendToAPI.quantity = quantity
+                    promiseArray.push(
+
+                        fetch(`http://localhost:8088/mainChoices`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(mainChoiceToSendToAPI)
+                        })
+
+
+                    )
+
+
+                }
+                for (const sideId of Object.keys(sideChoices)) {
+                    const quantity = sideChoices[sideId]
+
+                    sideChoiceToSendToAPI.sideId = parseInt(sideId)
+                    sideChoiceToSendToAPI.quantity = quantity
+                    promiseArray.push(
+
+                        fetch(`http://localhost:8088/sideChoices`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(sideChoiceToSendToAPI)
+                        })
+
+
+                    )
+
+
+                }
+                for (const dessertId of Object.keys(dessertChoices)) {
+                    const quantity = dessertChoices[dessertId]
+
+                    dessertChoiceToSendToAPI.dessertId = parseInt(dessertId)
+                    dessertChoiceToSendToAPI.quantity = quantity
+                    promiseArray.push(
+
+                        fetch(`http://localhost:8088/dessertChoices`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(dessertChoiceToSendToAPI)
+                        })
+
+
+                    )
+
+
+                }
+                Promise.all([promiseArray]
+                ).then(function (responses) {
+                    // Get a JSON object from each of the responses
+                    return Promise.all(responses.map(function (response) {
+                        return response.json();
+                    }));
+                }).then(function (data) {
+                    // Log the data to the console
+                    // You would do something with both sets of data here
+                    console.log(data);
+                }).catch(function (error) {
+                    // if there's an error, log it
+                    console.log(error);
                 })
-                    .then(response => response.json())
-                    .then(() => {
-                        navigate("/bookings")
-                    })
+                .then(() => {
+                    navigate("/bookings")
+            })
+                
+
+
             })
     }
 
