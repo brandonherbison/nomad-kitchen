@@ -17,10 +17,12 @@ export const AdminBookings = () => {
         }, []
     )
 
+   
+
     return <>
     <Container>
-        {bookings.map(booking =>
-            <Card>
+        {bookings.map(booking => 
+            <Card key={`booking--${booking.id}`} >
                 <Card.Body>
                     <Card.Title>Reservation for {booking.user.fullName}</Card.Title>
                     <Card.Text>

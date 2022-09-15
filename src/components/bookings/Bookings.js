@@ -13,7 +13,7 @@ export const Bookings = () => {
 		return <AdminBookings />
 	}
 	else {
-		return <CustomerBookings />
+		return <CustomerBookings currentUser={nomadUserObject}/>
 	}
 
 }
