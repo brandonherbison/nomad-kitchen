@@ -95,7 +95,8 @@ export const BookingForm = () => {
             location: booking.location,
             date: booking.date,
             time: booking.time,
-            price: booking.guestTotal * 125
+            price: booking.guestTotal * 125,
+            isApproved: ""
         }
 
         const starterChoiceToSendToAPI = {}

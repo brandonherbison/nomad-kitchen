@@ -26,7 +26,7 @@ export const AdminNav = () => {
             Nomad Kitchen
           </Navbar.Brand>
           <Nav className="justify-content-end" >
-            <Nav.Link href="bookings">
+            <Nav.Link href="/bookings">
                 Bookings
             </Nav.Link>
             <Nav.Link href="/" onClick={() => {

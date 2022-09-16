@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react"
-import { Button, Card, Container } from "react-bootstrap"
+import { Container } from "react-bootstrap"
+import { Booking } from "./Booking"
+
+
+
 
 
 
@@ -17,25 +21,23 @@ export const AdminBookings = () => {
         }, []
     )
 
-   
+
 
     return <>
     <Container>
-        {bookings.map(booking => 
-            <Card key={`booking--${booking.id}`} >
-                <Card.Body>
-                    <Card.Title>Reservation for {booking.user.fullName}</Card.Title>
-                    <Card.Text>
-                        Guests: {booking.guestTotal}
-                    </Card.Text>
-                    <Card.Text>
-                        Date: {booking.date}
-                    </Card.Text>
-                    <Button variant="primary">Details</Button>
-                    <Button variant="primary">Approve</Button>
-                    <Button variant="primary">Deny</Button>
-                </Card.Body>
-            </Card>
+        {bookings.map(booking => <Booking key={`booking--${booking.id}`}
+            bookingId={booking.id}
+            fullName={booking.user.fullName}
+            guestTotal={booking.guestTotal}
+            date={booking.date}
+            isApproved={booking.isApproved}
+            occasion={booking.occasion}
+            location={booking.location}
+            price={booking.price}
+            time={booking.time}
+
+            ></Booking>
+
         )}
 
     </Container>

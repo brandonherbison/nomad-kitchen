@@ -35,6 +35,13 @@ export const CustomerBookings = ({currentUser}) => {
                         <Card.Text>
                             Price: ${booking.price}.00
                         </Card.Text>
+                        <Card.Text>
+                            Status: {
+                                booking.isApproved
+                                ? "Approved"
+                                : "Pending"
+                            }
+                        </Card.Text>
                         <Button variant="primary">Cancel</Button>
                         <Button variant="primary">Edit</Button>
                     </Card.Body>
