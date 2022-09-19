@@ -19,13 +19,25 @@ export const BookingEdit = () => {
 
     })
 
-    const [starterChoiceObject, setStarterChoiceObject] = useState({
-    })
+    /* 
+        Target data structure for this state variable
+
+        {
+            startedId: {
+                choiceId: primaryKeyOfChoice,
+                quantity: quantity
+            }
+        }
+    */
+    const [starterChoiceObject, setStarterChoiceObject] = useState({})
+    const [mainChoiceObject, setMainChoiceObject] = useState({})
+    const [sideChoiceObject, setSideChoiceObject] = useState({})
+    const [dessertChoiceObject, setDessertChoiceObject] = useState({})
 
     const [starterChoices, setStarterChoices] = useState([])
-    const [mainChoices, setMainChoices] = useState({})
-    const [sideChoices, setSideChoices] = useState({})
-    const [dessertChoices, setDessertChoices] = useState({})
+    const [mainChoices, setMainChoices] = useState([])
+    const [sideChoices, setSideChoices] = useState([])
+    const [dessertChoices, setDessertChoices] = useState([])
 
 
 
@@ -37,7 +49,7 @@ export const BookingEdit = () => {
 
     const navigate = useNavigate()
 
-    const {bookingId} = useParams()
+    const { bookingId } = useParams()
 
     useEffect(() => {
         fetch(`http://localhost:8088/bookings/${bookingId}`)
@@ -51,31 +63,86 @@ export const BookingEdit = () => {
         fetch(`http://localhost:8088/starterChoices?_expand=booking&bookingId=${bookingId}&_expand=starter`)
             .then(response => response.json())
             .then((data) => {
-  
+
                 setStarterChoices(data)
+            })
+    }, [bookingId])
+    useEffect(() => {
+        fetch(`http://localhost:8088/mainChoices?_expand=booking&bookingId=${bookingId}&_expand=main`)
+            .then(response => response.json())
+            .then((data) => {
+
+                setMainChoices(data)
+            })
+    }, [bookingId])
+    useEffect(() => {
+        fetch(`http://localhost:8088/sideChoices?_expand=booking&bookingId=${bookingId}&_expand=side`)
+            .then(response => response.json())
+            .then((data) => {
+
+                setSideChoices(data)
+            })
+    }, [bookingId])
+    useEffect(() => {
+        fetch(`http://localhost:8088/dessertChoices?_expand=booking&bookingId=${bookingId}&_expand=dessert`)
+            .then(response => response.json())
+            .then((data) => {
+
+                setDessertChoices(data)
             })
     }, [bookingId])
 
     useEffect(() => {
-        /* 
-        {1:3}
-        */
-
-
         const choiceTracker = {}
 
         for (const starterChoice of starterChoices) {
-            choiceTracker[starterChoice.starterId] = starterChoice.quantity
+            choiceTracker[starterChoice.starterId] = {
+                choiceId: starterChoice.id,
+                quantity: starterChoice.quantity
+            }
         }
         setStarterChoiceObject(choiceTracker)
-       
-    //    const starterChoiceArray = starterChoices.map(starterChoice => {
-    //     return [starterChoice.starterId]: starterChoice.quantity
-    //    })
-    //    setStarterChoiceArray(starterChoiceArray)
-    }, [starterChoices]
 
-    )
+    }, [starterChoices])
+
+    useEffect(() => {
+        const choiceTracker = {}
+
+        for (const mainChoice of mainChoices) {
+            choiceTracker[mainChoice.mainId] = {
+                choiceId: mainChoice.id,
+                quantity: mainChoice.quantity
+            }
+        }
+        setMainChoiceObject(choiceTracker)
+
+    }, [mainChoices])
+
+    useEffect(() => {
+        const choiceTracker = {}
+
+        for (const sideChoice of sideChoices) {
+            choiceTracker[sideChoice.sideId] = {
+                choiceId: sideChoice.id,
+                quantity: sideChoice.quantity
+            }
+        }
+        setSideChoiceObject(choiceTracker)
+
+    }, [sideChoices])
+
+    useEffect(() => {
+        const choiceTracker = {}
+
+        for (const dessertChoice of dessertChoices) {
+            choiceTracker[dessertChoice.dessertId] = {
+                choiceId: dessertChoice.id,
+                quantity: dessertChoice.quantity
+            }
+        }
+        setDessertChoiceObject(choiceTracker)
+
+    }, [dessertChoices])
 
 
 
@@ -149,7 +216,7 @@ export const BookingEdit = () => {
         const dessertChoiceToSendToAPI = {}
 
 
-        return fetch(`http://localhost:8088/bookings/${booking.id}`, {
+        return fetch(`http://localhost:8088/bookings/${bookingId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -163,36 +230,35 @@ export const BookingEdit = () => {
                 mainChoiceToSendToAPI.bookingId = booking.id
                 sideChoiceToSendToAPI.bookingId = booking.id
                 dessertChoiceToSendToAPI.bookingId = booking.id
+
                 const promiseArray = []
 
-                for (const starterId of Object.keys(starterChoices)) {
-                    const quantity = starterChoices[starterId]
+                for (const starterId of Object.keys(starterChoiceObject)) {
+                    const trackerObject = starterChoiceObject[starterId]
 
                     starterChoiceToSendToAPI.starterId = parseInt(starterId)
-                    starterChoiceToSendToAPI.quantity = quantity
-                    promiseArray.push(
+                    starterChoiceToSendToAPI.quantity = trackerObject.quantity
 
-                        fetch(`http://localhost:8088/starterChoices`, {
+                    promiseArray.push(
+                        fetch(`http://localhost:8088/starterChoices/${trackerObject.choiceId}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json"
                             },
                             body: JSON.stringify(starterChoiceToSendToAPI)
                         })
-
-
                     )
 
 
                 }
-                for (const mainId of Object.keys(mainChoices)) {
-                    const quantity = mainChoices[mainId]
+                for (const mainId of Object.keys(mainChoiceObject)) {
+                    const trackerObject = mainChoiceObject[mainId]
 
                     mainChoiceToSendToAPI.mainId = parseInt(mainId)
-                    mainChoiceToSendToAPI.quantity = quantity
+                    mainChoiceToSendToAPI.quantity = trackerObject.quantity
                     promiseArray.push(
 
-                        fetch(`http://localhost:8088/mainChoices`, {
+                        fetch(`http://localhost:8088/mainChoices/${trackerObject.choiceId}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json"
@@ -205,14 +271,14 @@ export const BookingEdit = () => {
 
 
                 }
-                for (const sideId of Object.keys(sideChoices)) {
-                    const quantity = sideChoices[sideId]
+                for (const sideId of Object.keys(sideChoiceObject)) {
+                    const trackerObject = sideChoiceObject[sideId]
 
                     sideChoiceToSendToAPI.sideId = parseInt(sideId)
-                    sideChoiceToSendToAPI.quantity = quantity
+                    sideChoiceToSendToAPI.quantity = trackerObject.quantity
                     promiseArray.push(
 
-                        fetch(`http://localhost:8088/sideChoices`, {
+                        fetch(`http://localhost:8088/sideChoices/${trackerObject.choiceId}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json"
@@ -225,14 +291,14 @@ export const BookingEdit = () => {
 
 
                 }
-                for (const dessertId of Object.keys(dessertChoices)) {
-                    const quantity = dessertChoices[dessertId]
+                for (const dessertId of Object.keys(dessertChoiceObject)) {
+                    const trackerObject = dessertChoiceObject[dessertId]
 
                     dessertChoiceToSendToAPI.dessertId = parseInt(dessertId)
-                    dessertChoiceToSendToAPI.quantity = quantity
+                    dessertChoiceToSendToAPI.quantity = trackerObject.quantity
                     promiseArray.push(
 
-                        fetch(`http://localhost:8088/dessertChoices`, {
+                        fetch(`http://localhost:8088/dessertChoices/${trackerObject.choiceId}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json"
@@ -252,17 +318,16 @@ export const BookingEdit = () => {
                         return response.json();
                     }));
                 }).then(function (data) {
-                    // Log the data to the console
-                    // You would do something with both sets of data here
+
                     console.log(data);
                 }).catch(function (error) {
-                    // if there's an error, log it
+
                     console.log(error);
                 })
-                .then(() => {
-                    navigate("/bookings")
-            })
-                
+                    .then(() => {
+                        navigate("/bookings")
+                    })
+
 
 
             })
@@ -360,29 +425,31 @@ export const BookingEdit = () => {
                 <Card.Body>Choose Starters</Card.Body>
                 {
                     starters.map(starter =>
-                        <InputGroup className="my-2" key={`starter--${starter.id}`}
->
+                        <InputGroup className="my-2" key={`starter--${starter.id}`}>
                             <InputGroup.Text id="basic-addon1">{starter.name}</InputGroup.Text>
                             <Form.Control
                                 placeholder="0"
                                 aria-label="0"
                                 aria-describedby="basic-addon1"
-                                value={starterChoiceObject[starter.id]}
-                                defaultValue={starterChoiceObject[starter.id]}
+                                value={starterChoiceObject[starter.id]?.quantity}
+                                // defaultValue={starterChoiceObject[starter.id]}
                                 onChange={
                                     (evt) => {
                                         const copy = { ...starterChoiceObject }
-                                        copy[starter.id] = parseInt(evt.target.value)
+                                        copy[starter.id] = {
+                                            choiceId: copy[starter.id].choiceId,
+                                            quantity: parseInt(evt.target.value)
+                                        }
                                         if (evt.target.value !== "") {
                                             setStarterChoiceObject(copy)
-    
+
                                         }
                                         else {
                                             delete copy[starter.id];
                                             setStarterChoiceObject(copy)
                                         }
-    
-    
+
+
                                     }
                                 }
                             />
@@ -391,87 +458,104 @@ export const BookingEdit = () => {
                 <Card.Body>Choose Mains</Card.Body>
                 {
                     mains.map(main =>
-                        <InputGroup className="my-2" key={`main--${main.id}`}
-                            value={mainChoices[main.id]}
-                            onChange={
-                                (evt) => {
-                                    const copy = { ...mainChoices }
-                                    copy[main.id] = parseInt(evt.target.value)
-                                    if (evt.target.value !== "") {
-                                        setMainChoices(copy)
-
-                                    }
-                                    else {
-                                        delete copy[main.id];
-                                        setMainChoices(copy)
-                                    }
-
-
-                                }
-                            }>
+                        <InputGroup className="my-2" key={`main--${main.id}`}>
                             <InputGroup.Text id="basic-addon1">{main.name}</InputGroup.Text>
                             <Form.Control
+                                aria-describedby="basic-addon1"
                                 placeholder="0"
                                 aria-label="0"
-                                aria-describedby="basic-addon1"
+                                value={mainChoiceObject[main.id]?.quantity}
+                                // defaultValue={mainChoiceObject[main.id]}
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...mainChoiceObject }
+                                        copy[main.id] = {
+                                            choiceId: copy[main.id].choiceId,
+                                            quantity: parseInt(evt.target.value)
+                                        }
+                                        if (evt.target.value !== "") {
+                                            setMainChoiceObject(copy)
+
+                                        }
+                                        else {
+                                            delete copy[main.id];
+                                            setMainChoiceObject(copy)
+                                        }
+
+
+                                    }
+                                }
+
+
                             />
                         </InputGroup>)
                 }
                 <Card.Body>Choose Sides</Card.Body>
                 {
                     sides.map(side =>
-                        <InputGroup className="my-2" key={`side--${side.id}`}
-                            value={sideChoices[side.id]}
-                            onChange={
-                                (evt) => {
-                                    const copy = { ...sideChoices }
-                                    copy[side.id] = parseInt(evt.target.value)
-                                    if (evt.target.value !== "") {
-                                        setSideChoices(copy)
-
-                                    }
-                                    else {
-                                        delete copy[side.id];
-                                        setSideChoices(copy)
-                                    }
-
-
-                                }
-                            }>
+                        <InputGroup className="my-2" key={`side--${side.id}`}>
                             <InputGroup.Text id="basic-addon1">{side.name}</InputGroup.Text>
                             <Form.Control
                                 placeholder="0"
                                 aria-label="0"
                                 aria-describedby="basic-addon1"
+                                value={sideChoiceObject[side.id]?.quantity}
+                                // defaultValue={sideChoiceObject[side.id]}
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...sideChoiceObject }
+                                        copy[side.id] = {
+                                            choiceId: copy[side.id].choiceId,
+                                            quantity: parseInt(evt.target.value)
+                                        }
+                                        if (evt.target.value !== "") {
+                                            setSideChoiceObject(copy)
+
+                                        }
+                                        else {
+                                            delete copy[side.id];
+                                            setSideChoiceObject(copy)
+                                        }
+
+
+                                    }
+                                }
+
                             />
                         </InputGroup>)
                 }
                 <Card.Body>Choose Desserts</Card.Body>
                 {
                     desserts.map(dessert =>
-                        <InputGroup className="my-2" key={`dessert--${dessert.id}`}
-                            value={dessertChoices[dessert.id]}
-                            onChange={
-                                (evt) => {
-                                    const copy = { ...dessertChoices }
-                                    copy[dessert.id] = parseInt(evt.target.value)
-                                    if (evt.target.value !== "") {
-                                        setDessertChoices(copy)
-
-                                    }
-                                    else {
-                                        delete copy[dessert.id];
-                                        setDessertChoices(copy)
-                                    }
-
-
-                                }
-                            }>
+                        <InputGroup className="my-2" key={`dessert--${dessert.id}`}>
                             <InputGroup.Text id="basic-addon1">{dessert.name}</InputGroup.Text>
                             <Form.Control
                                 placeholder="0"
                                 aria-label="0"
                                 aria-describedby="basic-addon1"
+                                value={dessertChoiceObject[dessert.id]?.quantity}
+                                // defaultValue={dessertChoiceObject[dessert.id]}
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...dessertChoiceObject }
+                                        copy[dessert.id] = {
+                                            choiceId: copy[dessert.id].choiceId,
+                                            quantity: parseInt(evt.target.value)
+                                        }
+                                        if (evt.target.value !== "") {
+                                            setDessertChoiceObject(copy)
+
+                                        }
+                                        else {
+                                            delete copy[dessert.id];
+                                            setDessertChoiceObject(copy)
+                                        }
+
+
+                                    }
+                                }
+
+
                             />
                         </InputGroup>)
                 }
