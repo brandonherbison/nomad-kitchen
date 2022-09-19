@@ -11,13 +11,21 @@ export const AdminBookings = () => {
 
     const [bookings, setBookings] = useState([])
 
+
+
+    const getAllBookings = () => {
+
+        fetch(`http://localhost:8088/bookings?_expand=user`)
+        .then(response => response.json())
+        .then((bookingArray) => {
+            setBookings(bookingArray)
+        })
+    }
+
+
     useEffect(
         () => {
-            fetch(`http://localhost:8088/bookings?_expand=user`)
-                .then(response => response.json())
-                .then((bookingArray) => {
-                    setBookings(bookingArray)
-                })
+            getAllBookings()
         }, []
     )
 
@@ -35,6 +43,8 @@ export const AdminBookings = () => {
             location={booking.location}
             price={booking.price}
             time={booking.time}
+            getAllBookings={getAllBookings}
+            userId={booking.userId}
 
             ></Booking>
 

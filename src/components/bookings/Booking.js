@@ -3,10 +3,10 @@ import { Link } from "react-router-dom"
 
 
 
-export const Booking = ({ bookingId, fullName, guestTotal, date, isApproved, occasion, price, location, time }) => {
+export const Booking = ({ bookingId, fullName, guestTotal, date, isApproved, occasion, price, location, time , getAllBookings, userId }) => {
 
     return <>
-        <Card>
+        <Card className="mt-2">
             <Card.Body>
                 <Card.Title>Reservation for {fullName}</Card.Title>
                 <Card.Text>
@@ -16,7 +16,7 @@ export const Booking = ({ bookingId, fullName, guestTotal, date, isApproved, occ
                     Date: {date}
                 </Card.Text>
                 <Link to={`/bookings/${bookingId}/details`}>
-                    <Button variant="primary" >
+                    <Button variant="outline-danger" >
                         Details
                     </Button>
                 </Link>
@@ -26,7 +26,7 @@ export const Booking = ({ bookingId, fullName, guestTotal, date, isApproved, occ
                     : <><Button onClick={() => {
 
                         const copy = {
-                            userId: 1,
+                            userId: userId,
                             guestTotal: guestTotal,
                             location: location,
                             occasion: occasion,
@@ -43,8 +43,9 @@ export const Booking = ({ bookingId, fullName, guestTotal, date, isApproved, occ
                             body: JSON.stringify(copy)
                         })
                             .then(response => response.json())
+                            .then(getAllBookings)
     
-                    }} variant="primary">Approve</Button>
+                    }} variant="outline-danger">Approve</Button>
                     </>
                 }
 
