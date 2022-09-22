@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
-import { Button, Card, Container, Form, InputGroup } from "react-bootstrap"
+import { Button, Card, Col, Container, Form, InputGroup, Row } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 
 
 
 
 export const BookingForm = () => {
+
+    
 
     const [booking, update] = useState({
         guestTotal: 0,
@@ -227,9 +229,10 @@ export const BookingForm = () => {
 
     return <>
         <Container>
-            <Card className="align-items-center m-5" >
-                <Card.Body><h2>Booking Form</h2></Card.Body>
-                <Card.Body>Party Details</Card.Body>
+            <Card className=" m-5 px-5 shadow bg-light" >
+                <Card.Body className="text-center"><h2>Booking Form</h2></Card.Body>
+                <Card.Body className="text-center">Party Details</Card.Body>
+
 
                 <InputGroup className="my-2">
                     <InputGroup.Text id="basic-addon1">How many will be in attendance?</InputGroup.Text>
@@ -313,7 +316,7 @@ export const BookingForm = () => {
                         <option>8:00pm</option>
                     </Form.Select>
                 </InputGroup>
-                <Card.Body>Choose Starters</Card.Body>
+                <Card.Body className="text-center">Choose Starters</Card.Body>
                 {
                     starters.map(starter =>
                         <InputGroup className="my-2" key={`starter--${starter.id}`}
@@ -343,7 +346,7 @@ export const BookingForm = () => {
                             />
                         </InputGroup>)
                 }
-                <Card.Body>Choose Mains</Card.Body>
+                <Card.Body className="text-center">Choose Mains</Card.Body>
                 {
                     mains.map(main =>
                         <InputGroup className="my-2" key={`main--${main.id}`}
@@ -372,7 +375,7 @@ export const BookingForm = () => {
                             />
                         </InputGroup>)
                 }
-                <Card.Body>Choose Sides</Card.Body>
+                <Card.Body className="text-center">Choose Sides</Card.Body>
                 {
                     sides.map(side =>
                         <InputGroup className="my-2" key={`side--${side.id}`}
@@ -401,7 +404,7 @@ export const BookingForm = () => {
                             />
                         </InputGroup>)
                 }
-                <Card.Body>Choose Desserts</Card.Body>
+                <Card.Body className="text-center">Choose Desserts</Card.Body>
                 {
                     desserts.map(dessert =>
                         <InputGroup className="my-2" key={`dessert--${dessert.id}`}
@@ -430,8 +433,12 @@ export const BookingForm = () => {
                             />
                         </InputGroup>)
                 }
-                <Button
-                    onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}>Submit</Button>
+                <Row>
+                    <Col className="my-3">
+                    <Button variant="outline-danger float-end" size="lg" onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}>Submit</Button>
+                    </Col>
+                </Row>
+                
             </Card>
         </Container>
     </>
