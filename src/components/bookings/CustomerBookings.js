@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Button, Card, Col, Container, Row } from "react-bootstrap"
+import { Button, Card, Col, Container, OverlayTrigger, Popover, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 
@@ -25,6 +25,23 @@ export const CustomerBookings = ({ currentUser }) => {
         }, []
     )
 
+    const popover = (
+        <Popover id="popover-basic">
+            <Popover.Header as="h3">Hang Tight!</Popover.Header>
+            <Popover.Body>
+                An administrator is reviewing your request for a reservation. Thank you for booking with us!
+            </Popover.Body>
+        </Popover>
+    )
+    const popoverApproved = (
+        <Popover id="popover-basic">
+            <Popover.Header as="h3">You're All Set!</Popover.Header>
+            <Popover.Body>
+                If you need to make further changes to your reservation please email us at info@nomadkitchen.com.
+            </Popover.Body>
+        </Popover>
+    )
+
 
     return <>
         <Container className="mt-5">
@@ -36,7 +53,7 @@ export const CustomerBookings = ({ currentUser }) => {
                             <Card.Body>
                                 <Row>
                                     <Col className="col-9">
-                                        <Card.Title>Reservation for {booking.guestTotal} guests</Card.Title>
+                                        <Card.Title>{booking.occasion}</Card.Title>
                                         <Card.Text>
                                             Guests: {booking.guestTotal}
                                         </Card.Text>
@@ -49,8 +66,12 @@ export const CustomerBookings = ({ currentUser }) => {
                                         <Card.Text>
                                             Status: {
                                                 booking.isApproved
-                                                    ? "Approved"
-                                                    : "Pending"
+                                                    ? <OverlayTrigger trigger="click" placement="right" overlay={popoverApproved}>
+                                                        <Button variant="success" size="sm">Approved</Button>
+                                                    </OverlayTrigger>
+                                                    : <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+                                                        <Button variant="secondary" size="sm">Pending</Button>
+                                                    </OverlayTrigger>
                                             }
                                         </Card.Text>
                                     </Col>

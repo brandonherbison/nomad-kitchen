@@ -6,6 +6,10 @@ import Navbar from "react-bootstrap/Navbar"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import { TbTent } from 'react-icons/tb'
+import { BiCalendarEdit, BiFoodMenu } from 'react-icons/bi'
+import { AiOutlineFolderOpen } from 'react-icons/ai'
+import { RiLogoutCircleRLine } from 'react-icons/ri'
+import { Col, Row } from "react-bootstrap"
 
 
 export const CustomerNav = () => {
@@ -14,26 +18,55 @@ export const CustomerNav = () => {
     return (
         <>
 
-            <Navbar bg="dark" variant="dark" fixed="top">
+            <Navbar bg="dark" variant="dark" sticky="top">
                 <Container>
                     <Navbar.Brand href="home" className="fs-3">
-                    < TbTent size={30} color="red" className="mb-1" />
+                        < TbTent size={30} color="red" className="mb-1" />
                         Nomad Kitchen
                     </Navbar.Brand>
-                    <Nav className="justify-content-end" >
+                    <Nav className="justify-content-end gap-4" >
                         <Nav.Link href="menu">
-                            Our Menu
+                            <Col>
+                                <Row>
+                                    < BiFoodMenu size={20} color="red" />
+                                </Row>
+                                <Row>
+                                    Our Menu
+                                </Row>
+                            </Col>
                         </Nav.Link>
                         <Nav.Link href="bookings">
-                            My Bookings
+                            <Col>
+                                <Row>
+                                    < AiOutlineFolderOpen size={20} color="red" />
+                                </Row>
+                                <Row>
+                                    My Bookings
+                                </Row>
+                            </Col>
                         </Nav.Link>
                         <Nav.Link href="book-now">
-                            Book Now
+                            <Col>
+                                <Row>
+                                    < BiCalendarEdit size={20} color="red" />
+                                </Row>
+                                <Row>
+                                    Book Now
+                                </Row>
+                            </Col>
                         </Nav.Link>
                         <Nav.Link href="/" onClick={() => {
                             localStorage.removeItem("nomad_user")
                             navigate({ replace: true })
-                        }}>Logout</Nav.Link>
+                        }}>
+                            <Col>
+                                <Row>
+                                    < RiLogoutCircleRLine size={20} color="red" />
+                                </Row>
+                                <Row>
+                                    Logout
+                                </Row>
+                            </Col></Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

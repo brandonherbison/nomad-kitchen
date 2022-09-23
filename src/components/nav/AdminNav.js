@@ -6,6 +6,9 @@ import Navbar from "react-bootstrap/Navbar"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import { TbTent } from "react-icons/tb"
+import { AiOutlineFolderOpen } from "react-icons/ai"
+import { Col, Row } from "react-bootstrap"
+import { RiLogoutCircleRLine } from "react-icons/ri"
 
 
 
@@ -18,20 +21,33 @@ export const AdminNav = () => {
 
             <Navbar bg="dark" variant="dark" sticky="top">
                 <Container>
-                <Navbar.Brand href="home" className="fs-3">
-                    < TbTent size={30} color="red" className="mb-1" />
+                    <Navbar.Brand href="home" className="fs-3">
+                        < TbTent size={30} color="red" className="mb-1" />
                         Nomad Kitchen
                     </Navbar.Brand>
-                    <Nav className="justify-content-end" >
-                        <Nav.Link href="/bookings">
-                            Bookings
+                    <Nav className="justify-content-end gap-4" >
+                        <Nav.Link href="bookings">
+                            <Col>
+                                <Row>
+                                    < AiOutlineFolderOpen size={20} color="red" />
+                                </Row>
+                                <Row>
+                                    All Bookings
+                                </Row>
+                            </Col>
                         </Nav.Link>
                         <Nav.Link href="/" onClick={() => {
                             localStorage.removeItem("nomad_user")
                             navigate({ replace: true })
                         }}>
-                            Logout
-                        </Nav.Link>
+                            <Col>
+                                <Row>
+                                    < RiLogoutCircleRLine size={20} color="red" />
+                                </Row>
+                                <Row>
+                                    Logout
+                                </Row>
+                            </Col></Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

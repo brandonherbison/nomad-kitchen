@@ -15,7 +15,8 @@ export const BookingEdit = () => {
         occasion: "",
         location: "",
         date: "",
-        time: ""
+        time: "",
+        drinkPackage: ""
 
     })
 
@@ -191,7 +192,13 @@ export const BookingEdit = () => {
     const nomadUserObject = JSON.parse(localNomadUser)
 
 
-
+    const calculatedPrice = () => {
+        return (
+            booking.drinkPackage === true
+                ? booking.guestTotal * 125 + 500
+                : booking.guestTotal * 125
+        )
+    }
 
 
 
@@ -206,8 +213,9 @@ export const BookingEdit = () => {
             location: booking.location,
             date: booking.date,
             time: booking.time,
-            price: booking.guestTotal * 125,
-            isApproved: ""
+            price: calculatedPrice(),
+            isApproved: "",
+            drinkPackage: booking.drinkPackage
         }
 
         const starterChoiceToSendToAPI = {}
@@ -338,7 +346,7 @@ export const BookingEdit = () => {
         <Container>
             <Card className="m-5 px-5 shadow bg-light" >
                 <Card.Body className="text-center"><h2>Edit Booking</h2></Card.Body>
-                <Card.Body className="text-center">Party Details</Card.Body>
+                <Card.Title className="text-center">Party Details</Card.Title>
 
                 <InputGroup className="my-2">
                     <InputGroup.Text id="basic-addon1">How many will be in attendance?</InputGroup.Text>
@@ -422,7 +430,26 @@ export const BookingEdit = () => {
                         <option>8:00pm</option>
                     </Form.Select>
                 </InputGroup>
-                <Card.Body className="text-center">Choose Starters</Card.Body>
+                <Row>
+                <Col className="col-2">
+                <Form.Group  controlId="formBasicCheckbox">
+
+                    <Form.Check type="checkbox" label="Drink Package"
+                        checked={booking.drinkPackage}
+                        value={booking.drinkPackage}
+                        onChange={
+                            (evt) => {
+                                const copy = { ...booking }
+                                copy.drinkPackage = evt.target.checked
+                                update(copy)
+                            }
+                        } />
+                </Form.Group>
+                </Col>
+                <Col>
+                </Col>
+                </Row>
+                <Card.Title className="text-center my-2">Choose Starters</Card.Title>
                 {
                     starters.map(starter =>
                         <InputGroup className="my-2" key={`starter--${starter.id}`}>
@@ -455,7 +482,7 @@ export const BookingEdit = () => {
                             />
                         </InputGroup>)
                 }
-                <Card.Body className="text-center">Choose Mains</Card.Body>
+                <Card.Title className="text-center my-2">Choose Mains</Card.Title>
                 {
                     mains.map(main =>
                         <InputGroup className="my-2" key={`main--${main.id}`}>
@@ -490,7 +517,7 @@ export const BookingEdit = () => {
                             />
                         </InputGroup>)
                 }
-                <Card.Body className="text-center">Choose Sides</Card.Body>
+                <Card.Title className="text-center my-2">Choose Sides</Card.Title>
                 {
                     sides.map(side =>
                         <InputGroup className="my-2" key={`side--${side.id}`}>
@@ -524,7 +551,7 @@ export const BookingEdit = () => {
                             />
                         </InputGroup>)
                 }
-                <Card.Body className="text-center">Choose Desserts</Card.Body>
+                <Card.Title className="text-center my-2">Choose Desserts</Card.Title>
                 {
                     desserts.map(dessert =>
                         <InputGroup className="my-2" key={`dessert--${dessert.id}`}>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Button, Card, Col, Container, Form, InputGroup, Row } from "react-bootstrap"
+import { Button, Card, Col, Container, Form, InputGroup, OverlayTrigger, Popover, Row } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 
 
@@ -7,14 +7,15 @@ import { useNavigate } from "react-router-dom"
 
 export const BookingForm = () => {
 
-    
+
 
     const [booking, update] = useState({
-        guestTotal: 0,
+        guestTotal: "",
         occasion: "",
         location: "",
         date: "",
-        time: ""
+        time: "",
+        drinkPackage: false
 
     })
 
@@ -82,7 +83,13 @@ export const BookingForm = () => {
     const nomadUserObject = JSON.parse(localNomadUser)
 
 
-
+    const calculatedPrice = () => {
+        return (
+            booking.drinkPackage === true
+                ? booking.guestTotal * 125 + 500
+                : booking.guestTotal * 125
+        )
+    }
 
 
 
@@ -97,8 +104,9 @@ export const BookingForm = () => {
             location: booking.location,
             date: booking.date,
             time: booking.time,
-            price: booking.guestTotal * 125,
-            isApproved: ""
+            price: calculatedPrice(),
+            isApproved: "",
+            drinkPackage: booking.drinkPackage
         }
 
         const starterChoiceToSendToAPI = {}
@@ -217,39 +225,57 @@ export const BookingForm = () => {
                     // if there's an error, log it
                     console.log(error);
                 })
-                .then(() => {
-                    navigate("/bookings")
-            })
-                
+                    .then(() => {
+                        navigate("/bookings")
+                    })
+
 
 
             })
     }
 
 
+    const popover = (
+        <Popover id="popover-basic">
+            <Popover.Header as="h3">Pricing</Popover.Header>
+            <Popover.Body>
+                Nomad Kitchen charges a fixed price of $125.00 per person. We reccomend the drink package for parties of 10 or more. To add the drink package is an additional $500.00.
+            </Popover.Body>
+        </Popover>
+    )
+
+
     return <>
         <Container>
             <Card className=" m-5 px-5 shadow bg-light" >
                 <Card.Body className="text-center"><h2>Booking Form</h2></Card.Body>
-                <Card.Body className="text-center">Party Details</Card.Body>
+                <Card.Title className="text-center">Party Details</Card.Title>
 
-
-                <InputGroup className="my-2">
-                    <InputGroup.Text id="basic-addon1">How many will be in attendance?</InputGroup.Text>
-                    <Form.Control
-                        value={booking.guestTotal}
-                        onChange={
-                            (evt) => {
-                                const copy = { ...booking }
-                                copy.guestTotal = evt.target.value
-                                update(copy)
-                            }
-                        }
-                        placeholder="0"
-                        aria-label="Total Guests"
-                        aria-describedby="basic-addon1"
-                    />
-                </InputGroup>
+                <Row className=" my-2">
+                    <Col className="">
+                        <InputGroup >
+                            <InputGroup.Text id="basic-addon1">How many will be in attendance?</InputGroup.Text>
+                            <Form.Control
+                                value={booking.guestTotal}
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...booking }
+                                        copy.guestTotal = evt.target.value
+                                        update(copy)
+                                    }
+                                }
+                                placeholder="0"
+                                aria-label="Total Guests"
+                                aria-describedby="basic-addon1"
+                            />
+                        </InputGroup>
+                    </Col>
+                    <Col className="col-2">
+                        <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+                            <Button variant="secondary" className="px-3 float-end">Click for pricing!</Button>
+                        </OverlayTrigger>
+                    </Col>
+                </Row>
                 <InputGroup className="my-2">
                     <InputGroup.Text id="basic-addon1">Whats the occasion?</InputGroup.Text>
                     <Form.Control
@@ -316,7 +342,25 @@ export const BookingForm = () => {
                         <option>8:00pm</option>
                     </Form.Select>
                 </InputGroup>
-                <Card.Body className="text-center">Choose Starters</Card.Body>
+                <Row>
+                <Col className="col-2">
+                <Form.Group  controlId="formBasicCheckbox">
+
+                    <Form.Check type="checkbox" label="Drink Package"
+                        value={booking.drinkPackage}
+                        onChange={
+                            (evt) => {
+                                const copy = { ...booking }
+                                copy.drinkPackage = evt.target.checked
+                                update(copy)
+                            }
+                        } />
+                </Form.Group>
+                </Col>
+                <Col>
+                </Col>
+                </Row>
+                <Card.Title className="text-center my-2">Choose Starters</Card.Title>
                 {
                     starters.map(starter =>
                         <InputGroup className="my-2" key={`starter--${starter.id}`}
@@ -346,7 +390,7 @@ export const BookingForm = () => {
                             />
                         </InputGroup>)
                 }
-                <Card.Body className="text-center">Choose Mains</Card.Body>
+                <Card.Title className="text-center my-2">Choose Mains</Card.Title>
                 {
                     mains.map(main =>
                         <InputGroup className="my-2" key={`main--${main.id}`}
@@ -375,7 +419,7 @@ export const BookingForm = () => {
                             />
                         </InputGroup>)
                 }
-                <Card.Body className="text-center">Choose Sides</Card.Body>
+                <Card.Title className="text-center my-2">Choose Sides</Card.Title>
                 {
                     sides.map(side =>
                         <InputGroup className="my-2" key={`side--${side.id}`}
@@ -404,7 +448,7 @@ export const BookingForm = () => {
                             />
                         </InputGroup>)
                 }
-                <Card.Body className="text-center">Choose Desserts</Card.Body>
+                <Card.Title className="text-center my-2">Choose Desserts</Card.Title>
                 {
                     desserts.map(dessert =>
                         <InputGroup className="my-2" key={`dessert--${dessert.id}`}
@@ -435,10 +479,10 @@ export const BookingForm = () => {
                 }
                 <Row>
                     <Col className="my-3">
-                    <Button variant="outline-danger float-end" size="lg" onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}>Submit</Button>
+                        <Button variant="outline-danger float-end" size="lg" onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}>Submit</Button>
                     </Col>
                 </Row>
-                
+
             </Card>
         </Container>
     </>

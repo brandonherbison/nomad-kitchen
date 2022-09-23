@@ -106,27 +106,27 @@ export const Menu = () => {
                                             <Card.Title>{starter.name}</Card.Title>
                                             {
                                                 starter.id === 1
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Sweet, salty, and velvety rich. Served with warm pita.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 starter.id === 2
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Light and crispy puffed pastry sprinkled with bacon, garlic and parmesan cheese and baked up golden brown around tender asparagus.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 starter.id === 3
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Succulent, tender and bathed in a rich, spicy butter sauce. Served with crusty, garlicky French bread.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 starter.id === 4
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>This classic baked Louisiana dip is loaded with shrimp, crab, bell pepper, onion, bacon, 4 cheeses and all the right seasoning and spices.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 starter.id === 5
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>A perfectly arranged spread of meat, cheese, crackers and condiments. Prosciutto and Soppressata. Smoked Gouda and pimento cheese. Rye crackers, stoneground mustard, and tupelo honey.</Card.Text>
                                                     : ""
                                             }
                                         </Card.Body>
@@ -178,27 +178,27 @@ export const Menu = () => {
                                             <Card.Title>{main.name}</Card.Title>
                                             {
                                                 main.id === 1
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Our current dry aged steak flavor infusion is that of honey and thyme, an age-old pairing that adds a subtle sweetness and savoury hit to every bite.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 main.id === 2
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Besides the lemon and butter, we sprinkle on just a bit of honey and rosemary for perfect caramelization and flavor.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 main.id === 3
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Fresh tomato sauce, serano peppers, and garnished with fresh herbs.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 main.id === 4
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Seared until golden brown. Finished with garlic, thyme, and rosemary.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 main.id === 5
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Seared to perfection. Finished with a deeply rich pan sauce and fresh herbs.</Card.Text>
                                                     : ""
                                             }
                                         </Card.Body>
@@ -250,27 +250,27 @@ export const Menu = () => {
                                             <Card.Title>{side.name}</Card.Title>
                                             {
                                                 side.id === 1
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Tender and crispy. Seasoned with garlic, salt, and pepper. Served with lemon.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 side.id === 2
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Finished with scallions, parmesan cheese, and truffle oil.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 side.id === 3
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Butter, garlic, parsley, salt, and pepper.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 side.id === 4
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Crisp bacon, green onions, blue and cheddar cheese, sour and heavy cream all smashed into creamy potatoes.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 side.id === 5
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Baked until crispy. Finished with balsalmic glaze, honey, and chopped bacon.</Card.Text>
                                                     : ""
                                             }
                                         </Card.Body>
@@ -310,17 +310,17 @@ export const Menu = () => {
                                             <Card.Title>{dessert.name}</Card.Title>
                                             {
                                                 dessert.id === 1
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Made-from-scratch cookie dough. Large dark chocolate chunks. Baked in cast iron and finished with vanilla bean ice cream.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 dessert.id === 2
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Fresh strawberries, homemade whipped cream, and lemon-scented cream biscuits.</Card.Text>
                                                     : ""
                                             }
                                             {
                                                 dessert.id === 3
-                                                    ? <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+                                                    ? <Card.Text>Made the classic Italian way, with mascarpone, espresso, and marsala wine.</Card.Text>
                                                     : ""
                                             }
 

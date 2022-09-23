@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { Button, Form } from "react-bootstrap"
+import { Button, Card, Col, Container, Form, Row, Stack } from "react-bootstrap"
+import { TbTent } from "react-icons/tb"
 import { useNavigate } from "react-router-dom"
 
 export const Register = (props) => {
@@ -26,7 +27,7 @@ export const Register = (props) => {
                         admin: createdUser.isAdmin
                     }))
 
-                    navigate("/")
+                    navigate("/home")
                 }
             })
     }
@@ -54,23 +55,45 @@ export const Register = (props) => {
     }
 
     return <>
-        <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+<Container>
+
+<Stack className="text-center mb-3">
+  < TbTent size={50} color="red" className="mb-1 align-self-center" />
+  <h1>Nomad Kitchen</h1>
+  <h5>In-Home Cuisines and Cocktails</h5>
+</Stack>
+<Row>
+  <Col className="col-3">
+
+  </Col>
+  <Col className="col-6 align-self-center">
+
+    <Card className="p-3 bg-light">
+    <Form onSubmit={handleRegister}>
+        <Form.Group className="mb-3" controlId="fullName">
+        <Form.Label>Full Name</Form.Label>
+        <Form.Control type="fullName" placeholder="Full Name" onChange={updateCustomer} />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="email">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
+        <Form.Control type="email" placeholder="Enter email" onChange={updateCustomer}/>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" placeholder="Password" />
       </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
+      <Button variant="outline-danger" type="submit">
+        Register
       </Button>
     </Form>
+    </Card>
+  </Col>
+  <Col className="col-3">
+
+  </Col>
+</Row>
+</Container>
     </>
 }
 
@@ -78,37 +101,3 @@ export const Register = (props) => {
 
 
 
-
-
-
-// (
-//     <main style={{ textAlign: "center" }}>
-//         <form className="form--login" onSubmit={handleRegister}>
-//             <h1 className="h3 mb-3 font-weight-normal">Please Register for Honey Rae Repairs</h1>
-//             <fieldset>
-//                 <label htmlFor="fullName"> Full Name </label>
-//                 <input onChange={updateCustomer}
-//                        type="text" id="fullName" className="form-control"
-//                        placeholder="Enter your name" required autoFocus />
-//             </fieldset>
-//             <fieldset>
-//                 <label htmlFor="email"> Email address </label>
-//                 <input onChange={updateCustomer}
-//                     type="email" id="email" className="form-control"
-//                     placeholder="Email address" required />
-//             </fieldset>
-//             <fieldset>
-//                 <input onChange={(evt) => {
-//                     const copy = {...customer}
-//                     copy.isStaff = evt.target.checked
-//                     setCustomer(copy)
-//                 }}
-//                     type="checkbox" id="isStaff" />
-//                 <label htmlFor="email"> I am an employee </label>
-//             </fieldset>
-//             <fieldset>
-//                 <button type="submit"> Register </button>
-//             </fieldset>
-//         </form>
-//     </main>
-// )
