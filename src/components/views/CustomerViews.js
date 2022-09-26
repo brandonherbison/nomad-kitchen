@@ -4,6 +4,7 @@ import { BookingForm } from "../bookings/BookingForm"
 import { Bookings } from "../bookings/Bookings"
 import { Home } from "../Home"
 import { Menu } from "../Menu"
+import { Reviews } from "../reviews/Reviews"
 
 
 
@@ -23,6 +24,8 @@ export const CustomerViews = () => {
                 <Route path="bookings" element={ < Bookings /> } />
                 <Route path="bookings/:bookingId/edit" element={< BookingEdit />} />
                 <Route path="home" element={< Home />} />
+                <Route path="reviews" element={< Reviews />} />
+
 
             </Route>
         </Routes>

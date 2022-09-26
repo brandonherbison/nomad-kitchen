@@ -9,6 +9,7 @@ import { TbTent } from 'react-icons/tb'
 import { BiCalendarEdit, BiFoodMenu } from 'react-icons/bi'
 import { AiOutlineFolderOpen } from 'react-icons/ai'
 import { RiLogoutCircleRLine } from 'react-icons/ri'
+import { MdOutlineReviews } from 'react-icons/md'
 import { Col, Row } from "react-bootstrap"
 
 
@@ -20,12 +21,22 @@ export const CustomerNav = () => {
 
             <Navbar bg="dark" variant="dark" sticky="top">
                 <Container>
-                    <Navbar.Brand href="home" className="fs-3">
+                    <Navbar.Brand href="/home" className="fs-3">
                         < TbTent size={30} color="red" className="mb-1" />
                         Nomad Kitchen
                     </Navbar.Brand>
                     <Nav className="justify-content-end gap-4" >
-                        <Nav.Link href="menu">
+                    <Nav.Link href="/reviews">
+                            <Col>
+                                <Row>
+                                    < MdOutlineReviews size={20} color="red" />
+                                </Row>
+                                <Row>
+                                    Reviews
+                                </Row>
+                            </Col>
+                        </Nav.Link>
+                        <Nav.Link href="/menu">
                             <Col>
                                 <Row>
                                     < BiFoodMenu size={20} color="red" />
@@ -35,7 +46,7 @@ export const CustomerNav = () => {
                                 </Row>
                             </Col>
                         </Nav.Link>
-                        <Nav.Link href="bookings">
+                        <Nav.Link href="/bookings">
                             <Col>
                                 <Row>
                                     < AiOutlineFolderOpen size={20} color="red" />
@@ -45,7 +56,7 @@ export const CustomerNav = () => {
                                 </Row>
                             </Col>
                         </Nav.Link>
-                        <Nav.Link href="book-now">
+                        <Nav.Link href="/book-now">
                             <Col>
                                 <Row>
                                     < BiCalendarEdit size={20} color="red" />

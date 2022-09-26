@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { Button, Card, Col, Container, Form, Row, Stack } from "react-bootstrap";
 import { TbTent } from "react-icons/tb";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 
 export const Login = () => {
@@ -18,10 +17,13 @@ export const Login = () => {
           const user = foundUsers[0]
           localStorage.setItem("nomad_user", JSON.stringify({
             id: user.id,
-            admin: user.isAdmin
+            admin: user.isAdmin,
+            fullName: user.fullName
           }))
-
-          navigate("/home")
+          user.isAdmin
+          ? navigate("/bookings")
+          : navigate("/home")
+          
         }
         else {
           window.alert("Invalid ")
@@ -32,7 +34,7 @@ export const Login = () => {
   return <>
     <Container>
 
-      <Stack className="text-center mb-3">
+      <Stack className="text-center mb-3 mt-5">
         < TbTent size={50} color="red" className="mb-1 align-self-center" />
         <h1>Nomad Kitchen</h1>
         <h5>In-Home Cuisines and Cocktails</h5>
@@ -77,37 +79,3 @@ export const Login = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-// <main className="container--login">
-// <section>
-//     <form className="form--login" onSubmit={handleLogin}>
-//         <h1>Nomad Kitchen Bitches</h1>
-//         <h2>Please sign in</h2>
-//         <fieldset>
-//             <label htmlFor="inputEmail"> Email address </label>
-//             <input type="email"
-//                 value={email}
-//                 onChange={evt => set(evt.target.value)}
-//                 className="form-control"
-//                 placeholder="Email address"
-//                 required autoFocus />
-//         </fieldset>
-//         <fieldset>
-//             <button type="submit">
-//                 Sign in
-//             </button>
-//         </fieldset>
-//     </form>
-// </section>
-// <section className="link--register">
-//     <Link to="/register"></Link>
-// </section>
-// </main>

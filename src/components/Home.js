@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Card, Carousel, Col, Container, Row, Stack } from "react-bootstrap"
-import "./Home.css"
+
 
 
 export const Home = () => {
@@ -11,8 +11,18 @@ export const Home = () => {
         setIndex(selectedIndex);
     }
 
+    const localNomadUser = localStorage.getItem("nomad_user")
+    const nomadUserObject = JSON.parse(localNomadUser)
+
     return <>
         <Container className="bg-light shadow">
+            <Row className="my-1">
+
+            </Row>
+            <Row className="text-dark">
+                <h3>Welcome {nomadUserObject.fullName}!</h3>
+            </Row>
+            <hr/>
             <Row className="my-3">
                 <Col className="col-7">
                     <img
@@ -23,7 +33,7 @@ export const Home = () => {
                 </Col>
                 <Col className="col-5 mt-5">
                     <Row>
-                        <h1 className="text-dark">Be the Life of the Party!</h1>
+                        <h1 className="text-dark">Be the Life of the Party.</h1>
                         <p className="text-muted">Nomad Kitchen brings premium cuisines and cocktails right to your home or venue. Show your freinds and family the time of their life by hosting a memorable dinner party for any occasion. We offer an eclectic mix of menu items and carry our very own full-service bar!</p>
                     </Row>
                     <Row>
@@ -35,7 +45,7 @@ export const Home = () => {
                     </Row>
                 </Col>
             </Row>
-
+            <hr/>
             <Carousel activeIndex={index} onSelect={handleSelect} className="carousel-inner">
                 <Carousel.Item >
                     <Row>

@@ -9,6 +9,7 @@ import { TbTent } from "react-icons/tb"
 import { AiOutlineFolderOpen } from "react-icons/ai"
 import { Col, Row } from "react-bootstrap"
 import { RiLogoutCircleRLine } from "react-icons/ri"
+import { MdOutlineReviews } from "react-icons/md"
 
 
 
@@ -26,6 +27,16 @@ export const AdminNav = () => {
                         Nomad Kitchen
                     </Navbar.Brand>
                     <Nav className="justify-content-end gap-4" >
+                    <Nav.Link href="/reviews">
+                            <Col>
+                                <Row>
+                                    < MdOutlineReviews size={20} color="red" />
+                                </Row>
+                                <Row>
+                                    All Reviews
+                                </Row>
+                            </Col>
+                        </Nav.Link>
                         <Nav.Link href="bookings">
                             <Col>
                                 <Row>

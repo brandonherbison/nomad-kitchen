@@ -57,7 +57,7 @@ export const Register = (props) => {
     return <>
 <Container>
 
-<Stack className="text-center mb-3">
+<Stack className="text-center mb-3 mt-5">
   < TbTent size={50} color="red" className="mb-1 align-self-center" />
   <h1>Nomad Kitchen</h1>
   <h5>In-Home Cuisines and Cocktails</h5>
@@ -96,8 +96,3 @@ export const Register = (props) => {
 </Container>
     </>
 }
-
-
-
-
-

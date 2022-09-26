@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Button, Card, Col, Container, OverlayTrigger, Popover, Row } from "react-bootstrap"
+import { Button, Card, Col, Container, FloatingLabel, Form, OverlayTrigger, Popover, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 
@@ -49,14 +49,11 @@ export const CustomerBookings = ({ currentUser }) => {
             {
                 bookings.length > 0
                     ? bookings.map(booking =>
-                        <Card className="m-auto shadow bg-light" key={`booking--${booking.id}`} style={{ width: '55rem' }}>
+                        <Card className="m-auto mb-3 shadow bg-light " key={`booking--${booking.id}`} style={{ width: '55rem' }}>
                             <Card.Body>
                                 <Row>
                                     <Col className="col-9">
                                         <Card.Title>{booking.occasion}</Card.Title>
-                                        <Card.Text>
-                                            Guests: {booking.guestTotal}
-                                        </Card.Text>
                                         <Card.Text>
                                             Date: {booking.date}
                                         </Card.Text>
@@ -78,7 +75,9 @@ export const CustomerBookings = ({ currentUser }) => {
                                     <Col className="col-3 align-self-end">
                                         {
                                             booking.isApproved
-                                                ? ""
+                                                ? <Button href="/reviews" variant="outline-danger" size="lg" >
+                                                    Leave us a review!
+                                                </Button>
                                                 : <><Button variant="outline-danger px-3" className="float-end" onClick={() => {
                                                     fetch(`http://localhost:8088/bookings/${booking.id}`, {
                                                         method: "DELETE"
