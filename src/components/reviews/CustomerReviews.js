@@ -39,7 +39,7 @@ export const CustomerReviews = () => {
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
-        
+
 
         // TODO: Create the object to be saved to the API
 
@@ -60,16 +60,24 @@ export const CustomerReviews = () => {
             body: JSON.stringify(reviewToSendToAPI)
         })
             .then(response => response.json())
-            .then(getAllReviews);
-            
+            .then(update({
+                title: "",
+                body: ""
+            }))
+            .then(getAllReviews)
+            .then(setOpen(false));
+
     }
 
     return <>
         <Container>
             <Card className="p-3 my-4 shadow bg-light">
+            <Row className="text-center">
+            <h1>Reviews</h1>
+        </Row>
                 <Button
-                style={{ width: '25rem' }}
-                className="m-auto my-3"
+                    style={{ width: '25rem' }}
+                    className="m-auto my-3"
                     onClick={() => setOpen(!open)}
                     aria-controls="example-collapse-text"
                     aria-expanded={open}
@@ -87,7 +95,7 @@ export const CustomerReviews = () => {
                             <Form.Control style={{ width: '55rem' }}
                                 className="m-auto"
                                 as="textarea"
-                                placeholder="Leave a comment here"
+                                value={review.title}
                                 onChange={
                                     (evt) => {
                                         const copy = { ...review }
@@ -98,9 +106,9 @@ export const CustomerReviews = () => {
                         </FloatingLabel>
                         <FloatingLabel controlId="floatingTextarea2" label="Comments">
                             <Form.Control
-                                
+
                                 as="textarea"
-                                placeholder="Leave a comment here"
+                                value={review.body}
                                 style={{ height: '100px', width: '55rem' }}
                                 onChange={
                                     (evt) => {
@@ -115,40 +123,41 @@ export const CustomerReviews = () => {
                             <Col className="my-2" >
                                 <Button variant="outline-danger" type="submit" size="md" onClick={(clickEvent) => handleSaveButtonClick(clickEvent)} >Submit</Button>
                             </Col>
-                            
+
                         </Row>
-                    <hr/>
+                        <hr />
                     </div>
                 </Collapse>
 
+                <Row className="d-flex flex-column-reverse">
+                    {
+                        reviews.map(review =>
 
-                {
-                    reviews.map(review =>
-
-                        <Card className="m-auto my-3 p-3" style={{ width: '55rem' }}>
-                            <Card.Title className=" mx-3 ">
-                                {review.title}
-                            </Card.Title>
-                            <Card.Body>
-                                {review.body}
-                            </Card.Body>
-                            <Card.Body>
-                                By: {review.user.fullName}
-                            </Card.Body>
-                            {
-                                review.userId === nomadUserObject.id
-                                ? <Button style={{ width: '15rem' }} className="align-self-end"variant="outline-danger" size="md" 
-                                onClick={() => {
-                                    fetch(`http://localhost:8088/reviews/${review.id}`, {
-                                        method: "DELETE"
-                                    })
-                                        .then(getAllReviews)
-                                }}>Delete</Button>
-                                : ""
-                            }
-                        </Card>
-                    )
-                }
+                            <Card className="m-auto my-3 p-3 shadow" style={{ width: '55rem' }}>
+                                <Card.Title className=" mx-3 ">
+                                    {review.title}
+                                </Card.Title>
+                                <Card.Body>
+                                    {review.body}
+                                </Card.Body>
+                                <Card.Body>
+                                    By: {review.user.fullName}
+                                </Card.Body>
+                                {
+                                    review.userId === nomadUserObject.id
+                                        ? <Button style={{ width: '15rem' }} className="align-self-end" variant="outline-danger" size="md"
+                                            onClick={() => {
+                                                fetch(`http://localhost:8088/reviews/${review.id}`, {
+                                                    method: "DELETE"
+                                                })
+                                                    .then(getAllReviews)
+                                            }}>Delete</Button>
+                                        : ""
+                                }
+                            </Card>
+                        )
+                    }
+                </Row>
             </Card>
         </Container>
     </>

@@ -7,10 +7,10 @@ import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import { TbTent } from 'react-icons/tb'
 import { BiCalendarEdit, BiFoodMenu } from 'react-icons/bi'
-import { AiOutlineFolderOpen } from 'react-icons/ai'
+import { AiOutlineFolderOpen, AiOutlineInbox } from 'react-icons/ai'
 import { RiLogoutCircleRLine } from 'react-icons/ri'
 import { MdOutlineReviews } from 'react-icons/md'
-import { Col, Row } from "react-bootstrap"
+import { Badge, Col, Row } from "react-bootstrap"
 
 
 export const CustomerNav = () => {
@@ -26,6 +26,16 @@ export const CustomerNav = () => {
                         Nomad Kitchen
                     </Navbar.Brand>
                     <Nav className="justify-content-end gap-4" >
+                    <Nav.Link href="/inbox">
+                            <Col>
+                                <Row>
+                                    < AiOutlineInbox size={20} color="red" />
+                                </Row>
+                                <Row>
+                                Inbox {/* <Badge style={{ width: '1.5rem' }} bg="danger">1</Badge> */}
+                                </Row>
+                            </Col>
+                        </Nav.Link>
                     <Nav.Link href="/reviews">
                             <Col>
                                 <Row>

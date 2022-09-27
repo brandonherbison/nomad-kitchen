@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { Button, Card, Carousel, Col, Container, Row, Stack } from "react-bootstrap"
+import { useEffect, useState } from "react";
+import { Alert, Button, Card, Carousel, Col, Container, Row, Stack } from "react-bootstrap"
 
 
 
 export const Home = () => {
 
     const [index, setIndex] = useState(0);
+    const [show, setShow] = useState(true)
+    const [messages, setMessages] = useState([])
 
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
@@ -13,6 +15,30 @@ export const Home = () => {
 
     const localNomadUser = localStorage.getItem("nomad_user")
     const nomadUserObject = JSON.parse(localNomadUser)
+
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/messages`)
+                .then(response => response.json())
+                .then((messageArray) => {
+                    setMessages(messageArray)
+                })
+        }, []
+    )
+
+    const alertMessage = () => {
+        return (
+            show
+                ? <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+                    <Alert.Heading>Check your inbox!</Alert.Heading>
+                    <p>
+                        You have an important message from an administrator regarding your booking request.
+                    </p>
+                </Alert>
+                : ""
+        )
+    }
 
     return <>
         <Container className="bg-light shadow">
@@ -22,7 +48,16 @@ export const Home = () => {
             <Row className="text-dark">
                 <h3>Welcome {nomadUserObject.fullName}!</h3>
             </Row>
-            <hr/>
+            {
+                messages.map(message =>
+                    message.userId === nomadUserObject.id && message.isArchived === false
+                        ? alertMessage()
+                        : ""
+                )
+
+
+            }
+            <hr />
             <Row className="my-3">
                 <Col className="col-7">
                     <img
@@ -45,7 +80,7 @@ export const Home = () => {
                     </Row>
                 </Col>
             </Row>
-            <hr/>
+            <hr />
             <Carousel activeIndex={index} onSelect={handleSelect} className="carousel-inner">
                 <Carousel.Item >
                     <Row>

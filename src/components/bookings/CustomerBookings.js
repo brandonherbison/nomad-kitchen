@@ -29,7 +29,7 @@ export const CustomerBookings = ({ currentUser }) => {
         <Popover id="popover-basic">
             <Popover.Header as="h3">Hang Tight!</Popover.Header>
             <Popover.Body>
-                An administrator is reviewing your request for a reservation. Thank you for booking with us!
+                An administrator is reviewing your request for a reservation. Be sure to check your inbox for messages regarding your order.
             </Popover.Body>
         </Popover>
     )
@@ -44,7 +44,10 @@ export const CustomerBookings = ({ currentUser }) => {
 
 
     return <>
-        <Container className="mt-5">
+        <Container >
+            <Row className="text-center my-3">
+                <h1>Bookings</h1>
+            </Row>
 
             {
                 bookings.length > 0

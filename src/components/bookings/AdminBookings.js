@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import { Booking } from "./Booking"
+import { Booking } from "./AdminBooking"
 
 
 
