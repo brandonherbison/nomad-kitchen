@@ -32,7 +32,7 @@ export const AdminBookings = () => {
 
 
     return <>
-    <Container className="bg-light py-5 ">
+    <Container className="bg-light py-5 shadow">
         <Row className="text-center">
             <h1>All Bookings</h1>
         </Row>

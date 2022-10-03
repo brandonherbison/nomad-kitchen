@@ -70,14 +70,15 @@ export const CustomerReviews = () => {
     }
 
     return <>
-        <Container>
-            <Card className="p-3 my-4 shadow bg-light">
-            <Row className="text-center">
+        <Container className="shadow bg-light">
+            
+            <Row className="text-center my-3">
             <h1>Reviews</h1>
         </Row>
-                <Button
+            <Row className="d-flex justify-content-center">
+            <Button
                     style={{ width: '25rem' }}
-                    className="m-auto my-3"
+                    className=" my-3 shadow"
                     onClick={() => setOpen(!open)}
                     aria-controls="example-collapse-text"
                     aria-expanded={open}
@@ -85,6 +86,7 @@ export const CustomerReviews = () => {
                 >
                     Leave us a review!
                 </Button>
+            </Row>
                 <Collapse style={{ width: '55rem' }} className="m-auto" in={open}>
                     <div id="example-collapse-text">
                         <FloatingLabel
@@ -93,7 +95,7 @@ export const CustomerReviews = () => {
                             className="mb-3"
                         >
                             <Form.Control style={{ width: '55rem' }}
-                                className="m-auto"
+                                className="m-auto mt-4 shadow"
                                 as="textarea"
                                 value={review.title}
                                 onChange={
@@ -108,6 +110,7 @@ export const CustomerReviews = () => {
                             <Form.Control
 
                                 as="textarea"
+                                className=" shadow"
                                 value={review.body}
                                 style={{ height: '100px', width: '55rem' }}
                                 onChange={
@@ -120,8 +123,8 @@ export const CustomerReviews = () => {
                             />
                         </FloatingLabel>
                         <Row style={{ width: '55rem' }}>
-                            <Col className="my-2" >
-                                <Button variant="outline-danger" type="submit" size="md" onClick={(clickEvent) => handleSaveButtonClick(clickEvent)} >Submit</Button>
+                            <Col className="mt-4" >
+                                <Button variant="outline-danger" type="submit" size="md" className="shadow" onClick={(clickEvent) => handleSaveButtonClick(clickEvent)} >Submit</Button>
                             </Col>
 
                         </Row>
@@ -158,7 +161,7 @@ export const CustomerReviews = () => {
                         )
                     }
                 </Row>
-            </Card>
+            
         </Container>
     </>
 }

@@ -85,7 +85,7 @@ export const Menu = () => {
                                     }
                                     {
                                         starter.id === 3
-                                            ? <Col className="col-3 py-2"><Card.Img style={{ width: '13rem', height: '10rem' }} src="https://southerndiscourse.com/wp-content/uploads/2018/03/BBQ-shrimp-full.jpg" /></Col>
+                                            ? <Col className="col-3 py-2"><Card.Img style={{ width: '13rem', height: '10rem' }} src="https://assets.surlatable.com/m/5a51ceb49c77bb71/webimage-REC-469119_Shrimp.jpg" /></Col>
                                             : ""
 
                                     }
@@ -116,7 +116,7 @@ export const Menu = () => {
                                             }
                                             {
                                                 starter.id === 3
-                                                    ? <Card.Text>Succulent, tender and bathed in a rich, spicy butter sauce. Served with crusty, garlicky French bread.</Card.Text>
+                                                    ? <Card.Text>Succulent, tender and bathed in a rich, spicy butter sauce. Served with crusty, garlicky biscuits.</Card.Text>
                                                     : ""
                                             }
                                             {
@@ -157,13 +157,13 @@ export const Menu = () => {
                                     }
                                     {
                                         main.id === 3
-                                            ? <Col className="col-3 py-2"><Card.Img style={{ width: '13rem', height: '10rem' }} src="http://www.coastalseafoods.com/Assets/braisedmonkfishwithalmonds.jpg" /></Col>
+                                            ? <Col className="col-3 py-2"><Card.Img style={{ width: '13rem', height: '10rem' }} src="https://flexitariankitchen.com/wp-content/uploads/2021/01/Braised-Monkfish-in-Red-Pepper-Almond-Sauce-02-1.jpg" /></Col>
                                             : ""
 
                                     }
                                     {
                                         main.id === 4
-                                            ? <Col className="col-3 py-2"><Card.Img style={{ width: '13rem', height: '10rem' }} src="https://www.idratherbeachef.com/wp-content/uploads/2016/02/pan-seared-pork-chops-678x1024.jpg" /></Col>
+                                            ? <Col className="col-3 py-2"><Card.Img style={{ width: '13rem', height: '10rem' }} src="https://live.staticflickr.com/65535/49559108578_15d6688e53_c.jpg" /></Col>
                                             : ""
 
                                     }
@@ -235,7 +235,7 @@ export const Menu = () => {
                                     }
                                     {
                                         side.id === 4
-                                            ? <Col className="col-3 py-2"><Card.Img style={{ width: '13rem', height: '10rem' }} src="https://images.themodernproper.com/billowy-turkey/production/posts/2019/Twice-Baked-Potatoes-12.jpg?w=1200&auto=compress%2Cformat&fit=crop&dm=1599768623&s=30d6eb636afa838f4d8aa848e461b38b" /></Col>
+                                            ? <Col className="col-3 py-2"><Card.Img style={{ width: '13rem', height: '10rem' }} src="https://namelymarly.com/wp-content/uploads/2020/07/Twice-Baked_Potatoes_02-sq.jpg" /></Col>
                                             : ""
 
                                     }
