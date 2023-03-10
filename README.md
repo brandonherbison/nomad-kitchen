@@ -23,7 +23,3 @@ Our platform offers a variety of features to make your experience as convenient 
 - <strong>Seamless Communication:</strong> Submit reservation requests directly to the administrator and receive prompt responses.
 - <strong>Admin Approval:</strong> Our administrator reviews all reservations and can approve or deny orders as needed.
 
-
-## Get Started Today
-
-Ready to take your dining experience to the next level? Visit our website at www.nomadkitchen.com to create your account and start exploring our menu. With Nomad Kitchen, the possibilities are endless!
